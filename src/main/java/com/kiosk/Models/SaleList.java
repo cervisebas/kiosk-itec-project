@@ -13,11 +13,11 @@ public class SaleList {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "id_sale")
   private Sale sale;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "id_product")
   private Product product;
 

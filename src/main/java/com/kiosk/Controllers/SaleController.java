@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kiosk.Models.Sale;
+import com.kiosk.Models.SaleList;
 import com.kiosk.Repositories.SaleRepository;
 
 @RestController
@@ -34,6 +35,12 @@ public class SaleController {
   @PostMapping
   public ResponseEntity<Sale> create(@RequestBody Sale body) {
     Sale save = repository.save(body);
+
+    for (SaleList item : save.getList()) {
+      item.setSale(save.clone());
+    }
+
+    repository.save(save);
     
     return ResponseEntity
       .status(HttpStatus.CREATED)
