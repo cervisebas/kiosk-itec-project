@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-
 @Entity
 @Table (name = "sale_lists")
 public class SaleList {

@@ -10,37 +10,38 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kiosk.Models.PaymentMethod;
-import com.kiosk.Repositories.PaymentMethodRepository;
+import com.kiosk.Models.Product;
+import com.kiosk.Repositories.ProductRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/payment_method")
-public class PaymentMethodController {
+@RequestMapping("/api/product")
+public class ProductController {
   
   @Autowired
-  private PaymentMethodRepository repository;
+  private ProductRepository repository;
 
   @GetMapping
-  public List<PaymentMethod> getAll() {
+  public List<Product> getAll() {
     return repository.findAll();
   }
   
   @PostMapping
-  public ResponseEntity<PaymentMethod> create(@RequestBody PaymentMethod body) {
-    PaymentMethod save = repository.save(body);
+  public ResponseEntity<Product> create(@RequestBody Product body) {
+    Product save = repository.save(body);
     
     return ResponseEntity
       .status(HttpStatus.CREATED)
       .body(save);
   }
-
+  
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> delete(@PathVariable Long id){
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     if(!repository.existsById(id)) {
       return ResponseEntity
         .notFound()
@@ -51,5 +52,18 @@ public class PaymentMethodController {
     return ResponseEntity
       .noContent()
       .build();
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Product> delete(@PathVariable Long id, @RequestBody Product body) {
+    if(!repository.existsById(id)) {
+      return ResponseEntity
+        .notFound()
+        .build();
+    }
+
+    body.setId(id);
+    Product saved = repository.save(body);
+    return ResponseEntity.ok(saved);
   }
 }

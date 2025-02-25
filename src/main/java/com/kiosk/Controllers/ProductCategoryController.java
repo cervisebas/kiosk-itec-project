@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kiosk.Models.PaymentMethod;
-import com.kiosk.Repositories.PaymentMethodRepository;
+import com.kiosk.Models.ProductCategory;
+import com.kiosk.Repositories.ProductCategoryRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/payment_method")
-public class PaymentMethodController {
+@RequestMapping("/api/product_category")
+public class ProductCategoryController {
   
   @Autowired
-  private PaymentMethodRepository repository;
+  private ProductCategoryRepository repository;
 
   @GetMapping
-  public List<PaymentMethod> getAll() {
+  public List<ProductCategory> getAll() {
     return repository.findAll();
   }
   
   @PostMapping
-  public ResponseEntity<PaymentMethod> create(@RequestBody PaymentMethod body) {
-    PaymentMethod save = repository.save(body);
+  public ResponseEntity<ProductCategory> create(@RequestBody ProductCategory body) {
+    ProductCategory save = repository.save(body);
     
     return ResponseEntity
       .status(HttpStatus.CREATED)
