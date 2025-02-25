@@ -1,6 +1,5 @@
 package com.kiosk.Models;
 
-import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -22,9 +21,10 @@ public class Sale {
 
   @OneToMany(
     mappedBy = "sale",
-    cascade = CascadeType.ALL
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
   )
   private List<SaleList> list;
 
-  private Date total;
+  private Float total;
 }
